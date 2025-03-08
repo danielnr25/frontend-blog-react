@@ -3,7 +3,7 @@ import Modal from "./Modal";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { toast } from "react-toastify";
-
+import { getCategories } from "../../services/categoryService";
 const MySwal = withReactContent(Swal);
 
 const Categories = () => {
@@ -19,8 +19,7 @@ const Categories = () => {
 
     const fetchCategories = async() =>{
         try{
-            const response = await fetch("http://localhost:3000/api/categories");
-            const data = await response.json();
+            const data = await getCategories();
             setCategories(data);
         }catch (error){
             console.error("Error al obtener categorias", error)
