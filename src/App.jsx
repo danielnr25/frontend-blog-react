@@ -2,15 +2,15 @@ import { Route,BrowserRouter as Router, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Layout from "./components/Layout";
-import About from "./pages/About";
-import LayoutMain from "./components/LayoutMain";
-import AdminDashboard from "./admin/AdminDashboard";
-import PrivateRoute from "./routes/PrivateRoute";
-import Categories from "./admin/categories/Categories";
-import Posts from "./admin/posts/Posts";
+import Home from "@/pages/Home";
+import Login from "@/pages/Login";
+import Layout from "@/components/Layout";
+import About from "@/pages/About";
+import LayoutMain from "@/components/LayoutMain";
+import AdminDashboard from "@/admin/AdminDashboard";
+import PrivateRoute from "@/routes/PrivateRoute";
+import Categories from "@/admin/categories/Categories";
+import Posts from "@/admin/posts/Posts";
 
 function App (){
     return(

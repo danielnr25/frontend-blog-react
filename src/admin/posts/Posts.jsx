@@ -1,4 +1,4 @@
-import { getPosts } from "../../services/postService"
+import { getPosts } from "@/services/postService"
 import { useState,useEffect } from "react"
 import Modal from "./Modal";
 

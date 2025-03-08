@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCategories } from "../../services/categoryService"
+import { getCategories } from "@/services/categoryService"
 import { toast } from "react-toastify";
 
 const Modal = ({setIsOpen, post, fetchPosts}) => {

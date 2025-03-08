@@ -3,7 +3,7 @@ import Modal from "./Modal";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { toast } from "react-toastify";
-import { getCategories } from "../../services/categoryService";
+import { getCategories } from "@/services/categoryService";
 const MySwal = withReactContent(Swal);
 
 const Categories = () => {

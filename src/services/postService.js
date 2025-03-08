@@ -10,3 +10,12 @@ export const getPosts = async() =>{
         console.log('Error al mostrar los posts',error)
     }
 }
+
+export const getLatestPosts = async() =>{
+    try {
+        const response = await axios.get(`${API_URL}/latestpost`);
+        return response.data
+    } catch (error) {
+        console.log('Error al mostrar los posts', error)
+    }
+}
