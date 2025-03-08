@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { login } from "../services/authService";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
     const [username,setUsername] = useState("");
@@ -12,12 +13,12 @@ const Login = () => {
         try {
             const { data } = await login({ username, password });
             localStorage.setItem('token',data.token)
-            alert('Login exitoso');
+            //alert('Login exitoso');
             navigate("/admin");
         } catch (error) {
-            console.log(error.response.data.message);
+            //console.log(error.response.data.message);
             const message = error.response.data.message;
-            alert(message);
+            toast.error(message,{autoClose:2000});
         }
 
     }
