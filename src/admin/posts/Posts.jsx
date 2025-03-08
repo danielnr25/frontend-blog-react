@@ -48,6 +48,7 @@ const Posts = () => {
                     <th className="py-2 px-4 border">ID</th>
                     <th className="py-2 px-4 border">Nombre</th>
                     <th className="py-2 px-4 border">Contenido</th>
+                    <th className="py-2 px-4 border">Imagen</th>
                     <th className="py-2 px-4 border">Categoria</th>
                     <th className="py-2 px-4 border">Acciones</th>
                 </tr>
@@ -58,6 +59,13 @@ const Posts = () => {
                         <td className="py-2 px-4">{post.id}</td>
                         <td className="py-2 px-4">{post.title}</td>
                         <td className="py-2 px-4">{post.content}</td>
+                        <td className="py-2 px-4">
+                            <img 
+                                src={post.image} 
+                                alt={post.name}
+                                className="w-20 object-cover rounded-md mx-auto"
+                            />
+                        </td>
                         <td className="py-2 px-4">{post.category}</td>
                         <td className="py-2 px-4">
                             <button 

@@ -62,7 +62,7 @@ const Modal = ({setIsOpen, post, fetchPosts}) => {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        const url = post ? `http://localhost:5000/api/posts/${post.id}` : "http://localhost:5000/api/posts";
+        const url = post ? `http://localhost:3000/api/posts/${post.id}` : "http://localhost:3000/api/posts";
 
         const method =post ? "PUT" : "POST";
         const formDataToSend = new FormData();
