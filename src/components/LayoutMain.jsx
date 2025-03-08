@@ -33,7 +33,7 @@ const LayoutMain = () => {
                             { path: "/admin/categories", label: "Categorías" },
                             { path: "/admin/users", label: "Usuarios" },
                             { path: "/admin/posts", label: "Publicaciones" },
-                            { path: "/admin/settings", label: "Configuraciones" }
+                            { path: "/admin/comments", label: "Comentarios" }
                         ].map((item) => (
                             <li key={item.path}>
                                 <Link
