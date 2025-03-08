@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { getCategories } from "../../services/categoryService"
+import { toast } from "react-toastify";
 
 const Modal = ({setIsOpen, post, fetchPosts}) => {
     const [categories, setCategories] = useState([]);
     const [users, setUsers] = useState([]);
+    const [imageFile,setImageFile] = useState(null);
     const [formData, setFormData] = useState({
         title:"",
         content: "",
@@ -50,6 +52,45 @@ const Modal = ({setIsOpen, post, fetchPosts}) => {
     }
 
     const handleChange = (e) =>{
+        const {name,value} = e.target;
+        setFormData({...formData,[name]:value});
+    }
+
+    const handleImageChange = (e) => {
+        setImageFile(e.target.files[0])
+    }
+
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        const url = post ? `http://localhost:5000/api/posts/${post.id}` : "http://localhost:5000/api/posts";
+
+        const method =post ? "PUT" : "POST";
+        const formDataToSend = new FormData();
+        formDataToSend.append("title",formData.title);
+        formDataToSend.append("content",formData.content);
+        formDataToSend.append("user_id", formData.user_id);
+        formDataToSend.append("category_id", formData.category_id);
+
+        if(imageFile){
+            formDataToSend.append("image",imageFile);
+        }
+
+        try {
+            const response = await fetch(url,{
+                method,
+                body:formDataToSend, 
+            })
+
+            const data = await response.json();
+            if(!response.ok) throw new Error(data.message || "Error en la solicitud");
+            toast.success(data.message);
+            fetchPosts();
+            setIsOpen(false);
+        } catch (error) {
+            console.log("error al guard post", error);
+            toast.error(error.message);
+        }
+
 
     }
 
@@ -57,12 +98,13 @@ const Modal = ({setIsOpen, post, fetchPosts}) => {
     <div className="fixed inset-0 flex items-center justify-center bg-black opacity-95">
          <div className="bg-white p-6 rounded-lg w-[550px] shadow-lg">
             <h2 className="text-xl font-bold mb-4">{post ? "Editar Post" : "Crear Nuevo Post"}</h2>
-            <form action="" className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
                 <input
                     type="text"
                     name="title"
                     placeholder="Título"
                     value={formData.title}
+                    onChange={handleChange}
                     className="w-full p-2 border rounded"
                     required
                />
@@ -71,13 +113,24 @@ const Modal = ({setIsOpen, post, fetchPosts}) => {
                   name="content"
                   placeholder="Contenido"
                   value={formData.content}
+                  onChange={handleChange}
                   className="w-full p-2 border rounded"
                   required
                ></textarea>
 
+               <input 
+                type="file" 
+                name="image" 
+                id="image"
+                onChange={handleImageChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 sm:text-sm focus:border-blue-500"
+                accept="image/*"
+               />
+
                 <select 
                  value={formData.user_id}
                  name="user_id" 
+                 onChange={handleChange}
                  className="w-full p-2 border rounded"
                 >
                     <option value="">Seleccione una Usuario</option>
@@ -86,7 +139,9 @@ const Modal = ({setIsOpen, post, fetchPosts}) => {
                     ))}
                </select>
 
-               <select  value={formData.category_id} name="category_id" className="w-full p-2 border rounded">
+               <select  
+                onChange={handleChange}                
+                value={formData.category_id} name="category_id" className="w-full p-2 border rounded">
                     <option value="">Seleccione una Categoria</option>
                     {categories.map((category)=>(
                         <option key={category.id} value={category.id}>{category.name}</option>
