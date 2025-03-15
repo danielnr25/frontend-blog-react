@@ -7,8 +7,8 @@ const categories = [
     { name: "Tecnología", description: "Últimas tendencias y avances." },
     { name: "Desarrollo Web", description: "Tutoriales y guías sobre desarrollo." },
     { name: "Negocios", description: "Consejos y estrategias empresariales." },
-  ]; 
-  
+]; 
+
 const posts = [
     {
       title: "React vs Vue: ¿Cuál elegir?",
@@ -40,12 +40,25 @@ const posts = [
       image: "https://static.whataform.com/contents/repository/picture_9e96fc8114fb52f_ac237a82d897b03942f901c5f30f397eb8f30539.png",
       excerpt: "Guía para emprender con éxito en el mundo digital...",
     },
-  ];
+];
 
 
 const Blog = () => {
-  return (
-    <div>Blog</div>
+    const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+    const [selectedCategory,setSelectedCategory] = useState("All");
+
+    return (
+    <div className="bg-white">
+        <div>
+            
+
+            <main className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
+                <div className="flex items-baseline justify-between border-b border-gray-200 pt-8 pb-6">
+                    <h1 className="text-2xl font-bold tracking-tight">Publicaciones</h1>
+                </div>
+            </main>
+        </div>
+    </div>
   )
 }
 
