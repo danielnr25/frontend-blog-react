@@ -13,6 +13,9 @@ const Navbar = () => {
             <Link to="/blog" className="hover:underline">Blog</Link>
           </li>
           <li>
+            <Link to="/blogdetail" className="hover:underline">Blog Detalle</Link>
+          </li>
+          <li>
             <Link to="/about" className="hover:underline">About</Link>
           </li>
           <li>

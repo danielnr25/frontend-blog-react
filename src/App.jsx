@@ -12,6 +12,7 @@ import PrivateRoute from "@/routes/PrivateRoute";
 import Categories from "@/admin/categories/Categories";
 import Posts from "@/admin/posts/Posts";
 import Blog from "@/pages/Blog";
+import Blogdetail from "./pages/Blogdetail";
 
 function App (){
     return(
@@ -23,6 +24,7 @@ function App (){
                         <Route path="login" element={<Login/>} />
                         <Route path="about" element={<About/>} />
                         <Route path="blog" element={<Blog/>} />
+                        <Route path="blogdetail" element={<Blogdetail/>} />
                     </Route>
                     <Route path="/" element={<LayoutMain />}>
                         <Route 
