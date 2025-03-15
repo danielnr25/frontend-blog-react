@@ -11,6 +11,7 @@ import AdminDashboard from "@/admin/AdminDashboard";
 import PrivateRoute from "@/routes/PrivateRoute";
 import Categories from "@/admin/categories/Categories";
 import Posts from "@/admin/posts/Posts";
+import Blog from "@/pages/Blog";
 
 function App (){
     return(
@@ -21,6 +22,7 @@ function App (){
                         <Route index element={<Home/>} />
                         <Route path="login" element={<Login/>} />
                         <Route path="about" element={<About/>} />
+                        <Route path="blog" element={<Blog/>} />
                     </Route>
                     <Route path="/" element={<LayoutMain />}>
                         <Route 
