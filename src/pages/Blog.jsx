@@ -46,7 +46,9 @@ const posts = [
 
 const Blog = () => {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState("All");
+    const [selectedCategory, setSelectedCategory] = useState("Todos");
+
+    const filteredPosts = selectedCategory === "Todos" ? posts : posts.filter((post) => post.category === selectedCategory)
 
     return (
         <div className="bg-white">
@@ -71,7 +73,15 @@ const Blog = () => {
                             <ul className="px-2 py-3 font-medium text-gray-900">
                                 {categories.map((category) => (
                                     <li key={category.name}>
-                                        <button>
+                                        <button 
+                                            type="button"
+                                            onClick={()=>{
+                                                setSelectedCategory(category.name)
+                                                setMobileFiltersOpen(false)
+                                            }}
+                                            className={`block w-full text-left px-2 py-2 rounded-md ${selectedCategory === category.name ? "bg-gray-200" : ""
+                                            }`}
+                                        >
                                             {category.name}
                                         </button>
                                     </li>
@@ -105,16 +115,37 @@ const Blog = () => {
                                 <h3 className="sr-only">Categories</h3>
                                 <ul className="text-gray-900 pb-6">
                                     {categories.map((category) => (
-                                        <li key={category.name}>
-                                            <button>
-                                                {category.name}
-                                            </button>
-                                        </li>
+                                         <li key={category.name}>
+                                         <button
+                                            type="button"
+                                            onClick={() => setSelectedCategory(category.name)}
+                                            className={`block text-left px-2 py-2 rounded-md ${selectedCategory === category.name ? "bg-gray-200" : ""
+                                               }`}
+                                         >
+                                            {category.name}
+                                         </button>
+                                      </li>
                                     ))}
                                 </ul>
                             </div>
+                            <div className="lg:col-span-3">
+                                {filteredPosts.length > 0 ? 
+                                    ( <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                        {filteredPosts.map((post, index) => (
+                                           <li key={index} className="p-4 border rounded-lg shadow-sm bg-white">
+                                              <h3 className="text-xl font-semibold">{post.title}</h3>
+                                              <p className="text-gray-600">{post.category}</p>
+                                           </li>
+                                        ))}
+                                     </ul>
+
+                                    ):(
+                                        <p className="text-gray-500">No hay publicaciones</p>
+                                    )
+
+                                }
+                            </div>
                         </div>
-                        <div></div>
                     </section>
                 </main>
             </div>
