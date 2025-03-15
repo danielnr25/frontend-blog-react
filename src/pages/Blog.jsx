@@ -4,6 +4,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import { FunnelIcon } from '@heroicons/react/20/solid'
 
 const categories = [
+    {name:"Todos"},
     { name: "Tecnología", description: "Últimas tendencias y avances." },
     { name: "Desarrollo Web", description: "Tutoriales y guías sobre desarrollo." },
     { name: "Negocios", description: "Consejos y estrategias empresariales." },
@@ -55,7 +56,7 @@ const Blog = () => {
                         <div className="fixed inset-0 z-40 flex">
                             <DialogPanel className="relative ml-auto flex w-full max-w-xs flex-col bg-white py-4 pb-12 shadow-xl">
                             <div className="flex items-center justify-between px-4">
-                            <h2 className="text-lg font-medium text-gray-900">Filters</h2>
+                            <h2 className="text-lg font-medium text-gray-900">Categorias</h2>
                             <button
                             type="button"
                             onClick={() => setMobileFiltersOpen(false)}
@@ -66,19 +67,33 @@ const Blog = () => {
                             </button>
                         </div>
 
+                        <form className="mt-4 border-t border-gray-200">
+                            <ul className="px-2 py-3 font-medium text-gray-900">
+                                {categories.map((category) => (
+                                    <li key={category.name}>
+                                        <button>
+                                            {category.name}
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </form> 
+
                         </DialogPanel>
                     </div>
                 </Dialog>
 
                 <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex items-baseline justify-between border-b border-gray-200 pt-8 pb-6">
-                        <h1 className="text-2xl font-bold tracking-tight">Publicaciones</h1>
+                        <h1 className="text-2xl font-bold tracking-tight text-gray-900">Publicaciones</h1>
+
                         <div className="flex items-center">
                             <button
                                 type="button"
+                                onClick={() => setMobileFiltersOpen(true)}
                                 className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
                             >
-                                <FunnelIcon />
+                                <FunnelIcon className="size-5" />
                             </button>
                         </div>
                     </div>
@@ -86,23 +101,21 @@ const Blog = () => {
                     <section aria-labelledby="products-heading" className="pt-6 pb-24">
                         <h2 id="products-heading" className="sr-only">Posts</h2>
                         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-                            <div className="lg:block">
+                            <div className="hidden lg:block">
                                 <h3 className="sr-only">Categories</h3>
-                                <ul>
-                                    {categories.map((category) => {
+                                <ul className="text-gray-900 pb-6">
+                                    {categories.map((category) => (
                                         <li key={category.name}>
                                             <button>
                                                 {category.name}
                                             </button>
                                         </li>
-                                    })}
+                                    ))}
                                 </ul>
                             </div>
                         </div>
                         <div></div>
                     </section>
-
-
                 </main>
             </div>
         </div>
