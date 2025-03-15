@@ -4,7 +4,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import { FunnelIcon } from '@heroicons/react/20/solid'
 
 const categories = [
-    {name:"Todos"},
+    { name: "Todos" },
     { name: "Tecnología", description: "Últimas tendencias y avances." },
     { name: "Desarrollo Web", description: "Tutoriales y guías sobre desarrollo." },
     { name: "Negocios", description: "Consejos y estrategias empresariales." },
@@ -55,39 +55,39 @@ const Blog = () => {
             <div>
                 <Dialog open={mobileFiltersOpen} onClose={setMobileFiltersOpen} className="relative z-40 lg:hidden">
                     <DialogBackdrop className="fixed inset-0 bg-black/25" />
-                        <div className="fixed inset-0 z-40 flex">
-                            <DialogPanel className="relative ml-auto flex w-full max-w-xs flex-col bg-white py-4 pb-12 shadow-xl">
+                    <div className="fixed inset-0 z-40 flex">
+                        <DialogPanel className="relative ml-auto flex w-full max-w-xs flex-col bg-white py-4 pb-12 shadow-xl">
                             <div className="flex items-center justify-between px-4">
-                            <h2 className="text-lg font-medium text-gray-900">Categorias</h2>
-                            <button
-                            type="button"
-                            onClick={() => setMobileFiltersOpen(false)}
-                            className="-mr-2 flex size-10 items-center justify-center rounded-md bg-white p-2 text-gray-400"
-                            >
-                            <span className="sr-only">Close menu</span>
-                            <XMarkIcon className="size-6" />
-                            </button>
-                        </div>
+                                <h2 className="text-lg font-medium text-gray-900">Categorias</h2>
+                                <button
+                                    type="button"
+                                    onClick={() => setMobileFiltersOpen(false)}
+                                    className="-mr-2 flex size-10 items-center justify-center rounded-md bg-white p-2 text-gray-400"
+                                >
+                                    <span className="sr-only">Close menu</span>
+                                    <XMarkIcon className="size-6" />
+                                </button>
+                            </div>
 
-                        <form className="mt-4 border-t border-gray-200">
-                            <ul className="px-2 py-3 font-medium text-gray-900">
-                                {categories.map((category) => (
-                                    <li key={category.name}>
-                                        <button 
-                                            type="button"
-                                            onClick={()=>{
-                                                setSelectedCategory(category.name)
-                                                setMobileFiltersOpen(false)
-                                            }}
-                                            className={`block w-full text-left px-2 py-2 rounded-md ${selectedCategory === category.name ? "bg-gray-200" : ""
-                                            }`}
-                                        >
-                                            {category.name}
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </form> 
+                            <form className="mt-4 border-t border-gray-200">
+                                <ul className="px-2 py-3 font-medium text-gray-900">
+                                    {categories.map((category) => (
+                                        <li key={category.name}>
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    setSelectedCategory(category.name)
+                                                    setMobileFiltersOpen(false)
+                                                }}
+                                                className={`block w-full text-left px-2 py-2 rounded-md ${selectedCategory === category.name ? "bg-gray-200" : ""
+                                                    }`}
+                                            >
+                                                {category.name}
+                                            </button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </form>
 
                         </DialogPanel>
                     </div>
@@ -113,37 +113,43 @@ const Blog = () => {
                         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                             <div className="hidden lg:block">
                                 <h3 className="sr-only">Categories</h3>
-                                <ul className="text-gray-900 pb-6">
-                                    {categories.map((category) => (
-                                         <li key={category.name}>
-                                         <button
-                                            type="button"
-                                            onClick={() => setSelectedCategory(category.name)}
-                                            className={`block text-left px-2 py-2 rounded-md ${selectedCategory === category.name ? "bg-gray-200" : ""
-                                               }`}
-                                         >
-                                            {category.name}
-                                         </button>
-                                      </li>
-                                    ))}
-                                </ul>
+                                <div className="bg-gray-200 p-2 rounded-md">
+                                    <ul className="text-gray-900 pb-6">
+                                        {categories.map((category) => (
+                                            <li key={category.name}>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setSelectedCategory(category.name)}
+                                                    className={`cursor-pointer block w-full text-left px-2 py-2 rounded-md ${selectedCategory === category.name ? "bg-blue-400 font-semibold" : ""
+                                                        }`}
+                                                >
+                                                    {category.name}
+                                                </button>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
                             </div>
                             <div className="lg:col-span-3">
-                                {filteredPosts.length > 0 ? 
-                                    ( <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                                        {filteredPosts.map((post, index) => (
-                                           <li key={index} className="p-4 border rounded-lg shadow-sm bg-white">
-                                              <h3 className="text-xl font-semibold">{post.title}</h3>
-                                              <p className="text-gray-600">{post.category}</p>
-                                           </li>
-                                        ))}
-                                     </ul>
-
-                                    ):(
-                                        <p className="text-gray-500">No hay publicaciones</p>
-                                    )
-
-                                }
+                                <div className="grid  lg:grid-cols-3 sm:grid-cols-2 gap-6">
+                                    {filteredPosts.length > 0 ?
+                                        (filteredPosts.map((post, index) => (
+                                            <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
+                                            <img src={post.image} alt={post.name}
+                                                className="w-full h-48 object-cover"
+                                            />
+                                            <div className="p-6">
+                                                    <p className="text-gray-500 text-sm mb-2">{post.category}</p>
+                                                    <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
+                                                    <p className="text-gray-600 text-sm mb-4">{post.excerpt}</p>
+                                            </div>
+                                            </div>
+                                            ))
+                                        ) : (
+                                            <p className="text-gray-500">No hay publicaciones</p>
+                                        )
+                                    }
+                                </div>
                             </div>
                         </div>
                     </section>
