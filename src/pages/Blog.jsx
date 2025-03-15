@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { DialogBackdrop, Dialog, DialogPanel } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline'
-import { FunnelIcon } from '@heroicons/react/20/solid'
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { FunnelIcon } from '@heroicons/react/20/solid';
+import {getCategories} from '@/services/categoryService'
+import {getLatestPosts} from '@/services/postService'
+import { useEffect } from "react";
 
-const categories = [
+/* const categories = [
     { name: "Todos" },
     { name: "Tecnología", description: "Últimas tendencias y avances." },
     { name: "Desarrollo Web", description: "Tutoriales y guías sobre desarrollo." },
@@ -41,12 +44,39 @@ const posts = [
         image: "https://static.whataform.com/contents/repository/picture_9e96fc8114fb52f_ac237a82d897b03942f901c5f30f397eb8f30539.png",
         excerpt: "Guía para emprender con éxito en el mundo digital...",
     },
-];
+]; */
 
 
 const Blog = () => {
+    const [categories, setCategories] = useState([]);
+    const [posts,setPosts] = useState([]);
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState("Todos");
+
+    useEffect(() => {
+        fetchCategories();
+        fetchLatestPosts();
+    }, []);
+
+
+    const fetchCategories = async() =>{
+        try {
+            const data = await getCategories();
+            const allCategories = [{id: 0, name: 'Todos', description: 'Mostrar todas las categorias.'},...data]
+            setCategories(allCategories)
+        } catch (error) {
+            console.error("Error al obtener categorias",error)
+        }        
+    }
+
+    const fetchLatestPosts = async() =>{
+        try {
+            const data = await getLatestPosts();
+            setPosts(data)
+        } catch (error) {
+            console.error("Error al obtener las publicaciones",error)
+        }
+    }
 
     const filteredPosts = selectedCategory === "Todos" ? posts : posts.filter((post) => post.category === selectedCategory)
 
@@ -111,7 +141,7 @@ const Blog = () => {
                     <section aria-labelledby="products-heading" className="pt-6 pb-24">
                         <h2 id="products-heading" className="sr-only">Posts</h2>
                         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-                            <div className="hidden lg:block">
+                            <aside className="hidden lg:block">
                                 <h3 className="sr-only">Categories</h3>
                                 <div className="bg-gray-200 p-2 rounded-md">
                                     <ul className="text-gray-900 pb-6">
@@ -129,7 +159,7 @@ const Blog = () => {
                                         ))}
                                     </ul>
                                 </div>
-                            </div>
+                            </aside>
                             <div className="lg:col-span-3">
                                 <div className="grid  lg:grid-cols-3 sm:grid-cols-2 gap-6">
                                     {filteredPosts.length > 0 ?
@@ -146,7 +176,7 @@ const Blog = () => {
                                             </div>
                                             ))
                                         ) : (
-                                            <p className="text-gray-500">No hay publicaciones</p>
+                                            <p className="text-gray-700 text-xl text-center font-bold">No hay publicaciones</p>
                                         )
                                     }
                                 </div>
