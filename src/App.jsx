@@ -13,6 +13,7 @@ import Categories from "@/admin/categories/Categories";
 import Posts from "@/admin/posts/Posts";
 import Blog from "@/pages/Blog";
 import Blogdetail from "./pages/Blogdetail";
+import Comments from "./admin/comments/Comments";
 
 function App (){
     return(
@@ -47,6 +48,14 @@ function App (){
                             path="admin/posts" element={
                                 <PrivateRoute>
                                     <Posts/>
+                                </PrivateRoute>
+                            }
+                        />
+
+                        <Route 
+                            path="admin/comments" element={
+                                <PrivateRoute>
+                                    <Comments/>
                                 </PrivateRoute>
                             }
                         />

@@ -42,8 +42,6 @@ const CommentForm = ({postId, setComments}) => {
         } catch (error) {
             toast.error(error.message);
         }
-
-
     }
 
   return ( 
