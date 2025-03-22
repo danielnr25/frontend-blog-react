@@ -1,14 +1,21 @@
 import { useState } from "react"
-
+import { toast } from "react-toastify";
 const CommentForm = ({postId, setComments}) => {
     const [author,setAuthor] = useState("");
     const [content,setContent] = useState("");
-    //const [random, setRandom] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     const handleSubmit = async(e) =>{
         e.preventDefault();
-        if(!author || !content ){
-            alert("Todos los campos son obligatorios");
-            return;
+        if(!author ){
+           setErrorMessage("Debe ingresar su nombre");
+           setTimeout(()=>setErrorMessage(""),3000);
+           return
+        }
+
+        if(!content ){
+            setErrorMessage("Debe ingresar el contenido del comentario");
+            setTimeout(()=>setErrorMessage(""),3000);
+            return
         }
 
         try {
@@ -21,19 +28,19 @@ const CommentForm = ({postId, setComments}) => {
 
             const data = await response.json();
             if(response.ok){
-                alert("Comentario agregado con éxito");
+                toast.success(data.message,{autoClose:1500});
+                setAuthor("");
+                setContent("");
                 const res = await fetch(`http://localhost:3000/api/comments/${postId}`);
                 const newComments = await res.json();
                 setComments(newComments);
-                setAuthor("");
-                setContent("");
 
             }else{
-                alert(data.message)
+                toast.error(data.message);
             }
 
         } catch (error) {
-            console.error("Error al enviar comentario: ",error);
+            toast.error(error.message);
         }
 
 
@@ -62,11 +69,17 @@ const CommentForm = ({postId, setComments}) => {
                     placeholder="Escribe tu comentario aquí..."
                 ></textarea>
             </div>
-            <button className="mt-4 cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">
+            <button className="mt-4 w-full cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">
                  Publicar
             </button>
         </form>
-     
+
+        {errorMessage && (
+            <p className="bg-red-600 rounded-md p-2 mt-4 text-white text-lg text-center">
+                {errorMessage}
+            </p>
+        )}
+
         
     </div>
   )
