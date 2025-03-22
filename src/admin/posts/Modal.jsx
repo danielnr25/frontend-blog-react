@@ -10,7 +10,8 @@ const Modal = ({setIsOpen, post, fetchPosts}) => {
         title:"",
         content: "",
         user_id:"",
-        category_id:""
+        category_id:"",
+        slug:""
     })
 
     useEffect(()=>{
@@ -20,6 +21,7 @@ const Modal = ({setIsOpen, post, fetchPosts}) => {
                 content:post.content || "",
                 user_id: post.user_id || "",
                 category_id: post.category_id || "",
+                slug: post.slug || "",
             })
         }else{
             setFormData({
@@ -27,6 +29,7 @@ const Modal = ({setIsOpen, post, fetchPosts}) => {
                 content:"",
                 user_id:"",
                 category_id:"",
+                slug:""
             })
         }
     },[post])
@@ -51,9 +54,24 @@ const Modal = ({setIsOpen, post, fetchPosts}) => {
         }
     }
 
+    const generateSlug = (title) => {
+        return title
+        .toLowerCase()
+        .normalize("NFD") // Normaliza caracteres con tilde
+        .replace(/[\u0300-\u036f]/g, "") // Elimina tildes
+        .replace(/[^a-z0-9\s-]/g, "") // Quita caracteres especiales
+        .replace(/\s+/g, "-") // Reemplaza espacios por guiones
+        .replace(/-+/g, "-") // Reemplaza múltiples guiones por uno solo
+        .trim(); // Elimina espacios al inicio y final
+    }
+
     const handleChange = (e) =>{
         const {name,value} = e.target;
-        setFormData({...formData,[name]:value});
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+            slug: name === "title" ? generateSlug(value) : prevData.slug, // Genera slug si cambia el título
+        }));
     }
 
     const handleImageChange = (e) => {
@@ -70,12 +88,16 @@ const Modal = ({setIsOpen, post, fetchPosts}) => {
         formDataToSend.append("content",formData.content);
         formDataToSend.append("user_id", formData.user_id);
         formDataToSend.append("category_id", formData.category_id);
+        formDataToSend.append("slug", formData.slug);
+       
 
         if(imageFile){
             formDataToSend.append("image",imageFile);
+        }else{
+            formDataToSend.append("image","")
         }
-
         try {
+        
             const response = await fetch(url,{
                 method,
                 body:formDataToSend, 
@@ -87,7 +109,7 @@ const Modal = ({setIsOpen, post, fetchPosts}) => {
             fetchPosts();
             setIsOpen(false);
         } catch (error) {
-            console.log("error al guard post", error);
+            console.log("error al guardar post", error);
             toast.error(error.message);
         }
 
@@ -109,6 +131,16 @@ const Modal = ({setIsOpen, post, fetchPosts}) => {
                     required
                />
 
+                <input
+                    type="text"
+                    name="slug"
+                    placeholder="Slug"
+                    value={formData.slug}
+                    onChange={handleChange}
+                    className="w-full p-2 border rounded"
+                    readOnly
+                />
+
                 <textarea
                   name="content"
                   placeholder="Contenido"
@@ -117,6 +149,8 @@ const Modal = ({setIsOpen, post, fetchPosts}) => {
                   className="w-full p-2 border rounded"
                   required
                ></textarea>
+
+              
 
                <input 
                 type="file" 

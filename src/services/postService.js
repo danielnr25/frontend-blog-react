@@ -19,3 +19,14 @@ export const getLatestPosts = async() =>{
         console.log('Error al mostrar los posts', error)
     }
 }
+
+
+export const getPostBySlug = async (slug) => {
+    try {
+        const response = await axios.get(`${API_URL}/slug/${slug}`);
+        return response.data;
+    } catch (error) {
+        console.error(`Error al obtener el post con slug: ${slug}`, error);
+        return null;
+    }
+};
