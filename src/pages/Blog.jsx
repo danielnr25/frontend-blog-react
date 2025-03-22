@@ -5,6 +5,7 @@ import { FunnelIcon } from '@heroicons/react/20/solid';
 import {getCategories} from '@/services/categoryService'
 import {getLatestPosts} from '@/services/postService'
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 /* const categories = [
     { name: "Todos" },
@@ -164,15 +165,16 @@ const Blog = () => {
                                 <div className="grid  lg:grid-cols-3 sm:grid-cols-2 gap-6">
                                     {filteredPosts.length > 0 ?
                                         (filteredPosts.map((post, index) => (
-                                            <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
-                                            <img src={post.image} alt={post.name}
-                                                className="w-full h-48 object-cover"
-                                            />
-                                            <div className="p-6">
-                                                    <p className="text-gray-500 text-sm mb-2">{post.category}</p>
-                                                    <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
-                                                    <p className="text-gray-600 text-sm mb-4">{post.excerpt}</p>
-                                            </div>
+                                            <div key={index}  className="bg-white rounded-lg shadow-md overflow-hidden">
+                                                <img src={post.image} alt={post.name}
+                                                    className="w-full h-48 object-cover"
+                                                />
+                                                <div className="p-6">
+                                                        <p className="text-gray-500 text-sm mb-2">{post.category}</p>
+                                                        <Link to={`/blog/${post.slug}`} 
+                                                            className="text-xl font-semibold mb-2">{post.title}</Link>
+                                                        <p className="text-gray-600 text-sm mb-4">{post.excerpt}</p>
+                                                </div>
                                             </div>
                                             ))
                                         ) : (
