@@ -13,7 +13,7 @@ const Login = () => {
         try {
             const { data } = await login({ username, password });
             localStorage.setItem('token',data.token)
-            //alert('Login exitoso');
+            localStorage.setItem('user',JSON.stringify(data.user));
             navigate("/admin");
         } catch (error) {
             //console.log(error.response.data.message);
