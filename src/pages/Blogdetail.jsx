@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getPostBySlug } from "../services/postService";
-import CommentsSection from "../components/pages/blogdetail/CommentsSection";
-import CommentForm from "../components/pages/blogdetail/CommentForm";
-import PostContent from "../components/pages/blogdetail/PostContent";
+import { getPostBySlug } from "@/services/postService";
+import CommentsSection from "@/components/pages/blogdetail/CommentsSection";
+import CommentForm from "@/components/pages/blogdetail/CommentForm";
+import PostContent from "@/components/pages/blogdetail/PostContent";
 const Blogdetail = () => {
     const { slug } = useParams();
     const [post, setPost] = useState(null);

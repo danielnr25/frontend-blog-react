@@ -11,10 +11,10 @@ const Footer = () => {
 
         <nav>
           <ul className="flex space-x-6 text-sm">
-            <li><Link to="/" className="hover:underline">Home</Link></li>
+            <li><Link to="/" className="hover:underline">Inicio</Link></li>
             <li><Link to="/blog" className="hover:underline">Blog</Link></li>
-            <li><Link to="/about" className="hover:underline">About</Link></li>
-            <li><Link to="/login" className="hover:underline">Login</Link></li>
+            <li><Link to="/about" className="hover:underline">Nosotros</Link></li>
+            <li><Link to="/login" className="hover:underline">Iniciar Sesión</Link></li>
           </ul>
         </nav>
       </div>
